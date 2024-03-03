@@ -1,0 +1,49 @@
+{
+  "name": "vite-plugin-env",
+  "version": "1.0.1",
+  "description": "Add custom env variables into your vite bundle",
+  "type": "module",
+  "main": "./dist/vite-plugin-env.es2019.cjs",
+  "module": "./dist/vite-plugin-env.es2022.mjs",
+  "types": "./dist/vite-plugin-env.d.ts",
+  "scripts": {
+    "clean": "rm -rf dist",
+    "build": "npm run clean && tsbundle build",
+    "publish": "npm run clean && tsbundle publish"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zouloux/deuspi.git"
+  },
+  "keywords": [
+    "vite",
+    "plugin",
+    "custom",
+    "env",
+    "envs",
+    "variable"
+  ],
+  "author": "Alexis Bouhet ( ZoulouX )",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/zouloux/deuspi/issues"
+  },
+  "homepage": "https://github.com/zouloux/deuspi#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "@types/node": "^18.11.18",
+    "@zouloux/tsbundle": "^1.4.0"
+  },
+  "tsbundle": {
+    "output": "./dist",
+    "formats": [
+      "es2019.cjs",
+      "es2022.mjs"
+    ],
+    "files": [
+      {
+        "input": "./src/vite-plugin-env.ts"
+      }
+    ]
+  }
+}
