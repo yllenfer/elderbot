@@ -116,7 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
 const sbApikey = import.meta.env.VITE_SUPAB_API_KEY;
 const sbUrl = import.meta.env.VITE_SUPAB_URL; 
 const openAIApiKey = import.meta.env.VITE_OPEN_AI_API_KEY;
-console.log('keys: ', sbApikey, sbUrl, openAIApiKey);
+// console.log('keys: ', sbApikey, sbUrl, openAIApiKey);
 
 
  const client = createClient(sbUrl, sbApikey);
