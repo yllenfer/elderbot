@@ -116,6 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
 const sbApikey = import.meta.env.VITE_SUPAB_API_KEY;
 const sbUrl = import.meta.env.VITE_SUPAB_URL; 
 const openAIApiKey = import.meta.env.VITE_OPEN_AI_API_KEY;
+console.log('keys: ', sbApikey, sbUrl, openAIApiKey);
 
 
  const client = createClient(sbUrl, sbApikey);
@@ -186,9 +187,9 @@ async function progressConversation() {
     setCookie('interactionCount', interactionCount, 1);
 
     // Invoke AI to get response
-    const response = await chain.invoke({
+     const response = await chain.invoke({
         question: question
-    });
+     });
 
     // add AI message
     const newAiSpeechBubble = document.createElement('div');
