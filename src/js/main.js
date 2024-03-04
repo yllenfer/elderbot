@@ -21,7 +21,7 @@ import {dotenv} from 'dotenv';
    authDomain: import.meta.env.VITE_AUTH_DOMAIN,
    projectId: import.meta.env.VITE_PROJECT_ID,
    storageBucket: import.meta.env.VITE_STORAGE_BUCKET,
-   messagingSenderId: import.meta.env.VITE_MESSAGING_SENDER,
+   messagingSenderId: import.meta.env.VITE_MESSAGING_SENDER_ID,
    appId: import.meta.env.VITE_APP_ID,
    measurementId: import.meta.env.VITE_MEASURE_ID
  };
@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('submit', async (e) => {
         e.preventDefault();
         
-        if (interactionCount < 3) {
+        if (interactionCount < 5) {
             await progressConversation(); 
             interactionCount++; 
             setCookie('interactionCount', interactionCount, 1);
@@ -89,7 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 const sbApikey = import.meta.env.VITE_SUPAB_API_KEY;
-const sbUrl = import.meta.env.VITE_SUPA_URL; 
+const sbUrl = import.meta.env.VITE_SUPAB_URL; 
 const openAIApiKey = import.meta.env.VITE_OPEN_AI_API_KEY;
 
 
@@ -133,7 +133,7 @@ async function progressConversation() {
     chatbotConversation.scrollTop = chatbotConversation.scrollHeight;
     let interactionCount = parseInt(getCookie('interactionCount')) || 0; // Initialize interaction count from cookie
 
-    if (interactionCount >= 3) {
+    if (interactionCount >= 5) {
         displayLimitReachedMessage();
         return; 
     }
