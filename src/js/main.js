@@ -35,21 +35,40 @@ import {dotenv} from 'dotenv';
 // console.log(process.env)
 document.addEventListener('DOMContentLoaded', () => {
     const savedConversation = localStorage.getItem('conversation');
-    const chatbotConversation = document.getElementById('chatbot-conversation-container'); // Define chatbotConversation here
-    let interactionCount = parseInt(getCookie('interactionCount')) || 0; // Initialize interaction count from cookie
+    const chatbotConversation = document.getElementById('chatbot-conversation-container');
+    let interactionCount = parseInt(getCookie('interactionCount')) || 0;
 
+    // Function to generate UUID
     function generateUserId() {
-        // Generate a UUID (Universally Unique Identifier)
-        // This will create a unique identifier for each user
-        return 'user-' + uuidv4(); // Assuming you have a function to generate UUIDs
+        return 'user-' + uuidv4();
     }
-    
 
-    if (savedConversation) {
-        chatbotConversation.innerHTML = savedConversation;
+    // Function to scroll to the bottom of the chat
+    function scrollToBottom(container) {
+        container.scrollTop = container.scrollHeight;
+    }
+
+    // Function to check if chatbot conversation is empty
+    function isChatbotConversationEmpty() {
+        return chatbotConversation.children.length === 0;
+    }
+
+    // Function to display the introductory message
+    function displayIntroMessage() {
+        const introMessage = "Hi, my name is Elder Bot and I am here to help you with your questions about the Book of Mormon. Feel free to ask me anything!";
+        const introSpeechBubble = document.createElement('div');
+        introSpeechBubble.classList.add('speech', 'speech-ai');
+        introSpeechBubble.textContent = introMessage;
+        chatbotConversation.appendChild(introSpeechBubble);
         scrollToBottom(chatbotConversation);
     }
 
+    // Display intro message only if the chat is empty
+    if (isChatbotConversationEmpty() && !savedConversation) {
+        displayIntroMessage();
+    }
+
+    // Add event listener for form submission
     document.addEventListener('submit', async (e) => {
         e.preventDefault();
         
@@ -64,6 +83,12 @@ document.addEventListener('DOMContentLoaded', () => {
             displayLimitReachedMessage();
         }
     });
+
+    // Restore saved conversation from local storage if available
+    if (savedConversation) {
+        chatbotConversation.innerHTML = savedConversation;
+        scrollToBottom(chatbotConversation);
+    }
 });
 
 // async function updateInteractionCount(userId) {
@@ -122,8 +147,26 @@ async function progressConversation() {
     const userInput = document.getElementById('user-input');
     const chatbotConversation = document.getElementById('chatbot-conversation-container');
     const typingIndicatorContainer = document.getElementById('typing-indicator-container');
+
+    // const isChatEmpty = chatbotConversation.children.length === 0;
+
+    // if (isChatEmpty) {
+    //     const introMessage = "Hi, my name is Elder Bot and I am here to help you with your questions about the Book of Mormon. Feel free to ask me anything!";
+    //     const introSpeechBubble = document.createElement('div');
+    //     introSpeechBubble.classList.add('speech', 'speech-ai');
+    //     introSpeechBubble.textContent = introMessage;
+    //     chatbotConversation.appendChild(introSpeechBubble);
+
+        
+    //     scrollToBottom(chatbotConversation);
+    // }
+
+    // await new Promise(resolve => setTimeout(resolve, 1000));
+
     const question = userInput.value;
     userInput.value = '';
+
+
 
     // add human message
     const newHumanSpeechBubble = document.createElement('div');
@@ -155,7 +198,7 @@ async function progressConversation() {
     chatbotConversation.scrollTop = chatbotConversation.scrollHeight;
 
     // Scroll to bottom after adding new message
-    scrollToBottom(chatbotConversation);
+   
 
     // Update local storage
     localStorage.setItem('conversation', chatbotConversation.innerHTML);
