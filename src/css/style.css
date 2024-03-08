@@ -173,6 +173,7 @@ button {
 
   .chatbot-conversation-container {
     height: 80%;
+    display: block;
   }
 
   #user-input {
@@ -222,7 +223,6 @@ button {
 @media (min-width: 745px) and (orientation: portrait) {
 
 
-
   .logo {
     width: 200px;
     height: auto;
@@ -243,6 +243,7 @@ button {
 
   .chatbot-conversation-container {
     height: 68%;
+    /* position: relative; */
   }
 
   #user-input {
