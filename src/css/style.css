@@ -30,7 +30,7 @@ main {
 .chatbot-container {
   background-color: #fff;
   width: 800px;
-  height: 650px;
+  height: 700px;
   border-radius: var(--border-rad-lg);
   padding: 1em;  
 }
@@ -53,9 +53,10 @@ main {
 }
 
 .chatbot-conversation-container {
-  height: 100%;
+  height: 40%;
   overflow-y: scroll;
   margin:  0;
+ 
 }
 
 /* stop ugly scroll bar on some browsers */
@@ -104,6 +105,7 @@ input[type="text"], button {
   border: 1px solid #586e88;
   border-radius: var(--border-rad-lg);
   padding: 1em;
+  margin-top: 12%;
   
 }
 
@@ -145,29 +147,27 @@ button {
 #user-input{
   font-family: 'Courier New', Courier, monospace;
   font-size: 14px;
+  
  
 }
 
 /* Media query for phones */
-@media (min-width: 600px) and (orientation: portrait) {
-  .logo{
+@media (min-width: 600px) and (max-width: 745px) and (orientation: portrait) {
+  .logo {
     width: 200px;
     height: auto;
     margin-left: -30px;
   }
+  
   * {
     font-size: 30px;
     font-family: 'Courier New', Courier, monospace;
-   
   }
 
   .chatbot-container {
     width: 100%;
     height: 100%;
-    /* margin-top: -50%; */
-    /* background-color: bisque; */
     border-radius: 0;
-    
   }
 
   .chatbot-conversation-container {
@@ -175,21 +175,18 @@ button {
   }
 
   #user-input {
-    margin-top: 10%;
-    border: 1px solid #586e88;
+    margin-top: 5%; /* Adjust this value as needed */
     height: 100px;
     font-size: 40px;
     color: #000;
- 
   }
 
   .submit-btn {
-    margin-top: 10%;
+    margin-top: 5%; /* Adjust this value as needed */
     height: 100px;
-    
   }
 
-  .sub-heading{
+  .sub-heading {
     font-size: 35px;
   }
 }
@@ -203,7 +200,7 @@ button {
   }
 
 .chatbot-conversation-container {
-  height: 50%;
+  height: 70%;
   
 }
 
@@ -216,4 +213,57 @@ button {
   margin-top: 1%;
   height: 50px;
 }
+}
+
+
+@media (min-width: 745px) and (orientation: portrait) {
+
+  /* *{
+    background-color: aqua;
+  } */
+
+  .logo {
+    width: 200px;
+    height: auto;
+    margin-left: -30px;
+  }
+  
+  * {
+    font-size: 30px;
+    font-family: 'Courier New', Courier, monospace;
+  }
+
+  .chatbot-container {
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+  }
+
+  .chatbot-conversation-container {
+    height: 80%;
+  }
+
+  #user-input {
+    margin-top: 5%; /* Adjust this value as needed */
+    height: 100px;
+    font-size: 40px;
+    color: #000;
+  }
+
+  .submit-btn {
+    margin-top: 5%; /* Adjust this value as needed */
+    height: 100px;
+  }
+
+  .sub-heading {
+    font-size: 35px;
+  }
+}
+
+@media (min-width: 745px) and (orientation: landscape) {
+
+  .chatbot-conversation-container {
+    height: 50%;
+  }
+
 }
