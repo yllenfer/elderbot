@@ -162,6 +162,7 @@ button {
   * {
     font-size: 30px;
     font-family: 'Courier New', Courier, monospace;
+   
   }
 
   .chatbot-container {
@@ -176,7 +177,7 @@ button {
 
   #user-input {
     margin-top: 5%; /* Adjust this value as needed */
-    height: 100px;
+    height: 300px;
     font-size: 40px;
     color: #000;
   }
@@ -194,6 +195,8 @@ button {
 
 
 @media (min-width: 600px) and (orientation: landscape) {
+
+  
   .chatbot-container{
     /* background-color: aqua; */
     height: 90%;
@@ -218,9 +221,7 @@ button {
 
 @media (min-width: 745px) and (orientation: portrait) {
 
-  /* *{
-    background-color: aqua;
-  } */
+
 
   .logo {
     width: 200px;
@@ -231,6 +232,7 @@ button {
   * {
     font-size: 30px;
     font-family: 'Courier New', Courier, monospace;
+    /* background-color: aqua; */
   }
 
   .chatbot-container {
@@ -245,25 +247,43 @@ button {
 
   #user-input {
     margin-top: 5%; /* Adjust this value as needed */
-    height: 100px;
+    height: 150px;
     font-size: 40px;
     color: #000;
+    border: 3px solid #586e88;
+    position: fixed;
+    width: 77%;
   }
 
-  .submit-btn {
-    margin-top: 5%; /* Adjust this value as needed */
-    height: 100px;
-  }
+ 
 
   .sub-heading {
     font-size: 35px;
   }
+
+
+.send-btn-icon {
+  width: 50px; /* Adjust the size as needed */
+  height: auto;
+  
+}
+
+/* Keep the button height consistent */
+.submit-btn {
+  position: fixed;
+  margin-top: 5%;
+  height: 150px;
+  width: 150px; 
+  background-color: #adb2ba;
+  right: 4%; /* Adjust as needed */
+}
+
 }
 
 @media (min-width: 745px) and (orientation: landscape) {
 
   .chatbot-conversation-container {
-    height: 50%;
+    height: 40%;
   }
 
 }
