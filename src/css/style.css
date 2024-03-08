@@ -156,10 +156,9 @@ button {
     margin-left: -30px;
   }
   * {
-    font-size: 15px;
-    font-weight: light;
+    font-size: 30px;
     font-family: 'Courier New', Courier, monospace;
-    /* background-color: aqua; */
+   
   }
 
   .chatbot-container {
@@ -172,13 +171,16 @@ button {
   }
 
   .chatbot-conversation-container {
-    height: 65%;
+    height: 80%;
   }
 
   #user-input {
     margin-top: 10%;
     border: 1px solid #586e88;
     height: 100px;
+    font-size: 40px;
+    color: #000;
+ 
   }
 
   .submit-btn {
