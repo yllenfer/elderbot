@@ -247,12 +247,12 @@ button {
 
   #user-input {
     margin-top: 5%; /* Adjust this value as needed */
-    height: 150px;
+    /* height: 150px; */
     font-size: 40px;
     color: #000;
     border: 3px solid #586e88;
-    position: fixed;
-    width: 77%;
+    /* position: fixed; */
+    /* width: 77%; */
   }
 
  
@@ -270,12 +270,12 @@ button {
 
 /* Keep the button height consistent */
 .submit-btn {
-  position: fixed;
+  /* position: fixed; */
   margin-top: 5%;
   height: 150px;
   width: 150px; 
   background-color: #adb2ba;
-  right: 4%; /* Adjust as needed */
+ 
 }
 
 }
