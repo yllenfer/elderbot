@@ -17,23 +17,26 @@ html, body {
 
 main {    
   background-color: #1d3557;
-  background-size: cover;
-  background-repeat: no-repeat;
+  /* background-color: aqua; */
   height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-/* chatbot elements */
+
 
 .chatbot-container {
   background-color: #fff;
   width: 800px;
-  height: 700px;
+  height: 80vh; 
   border-radius: var(--border-rad-lg);
   padding: 1em;  
+  display: flex; 
+  flex-direction: column; 
+  justify-content: space-between; 
 }
+
 
 .chatbot-container > * {
   padding: .5em;   
@@ -53,13 +56,11 @@ main {
 }
 
 .chatbot-conversation-container {
-  height: 40%;
-  overflow-y: scroll;
-  margin:  0;
- 
+  flex: 1; 
+  overflow-y: scroll; 
 }
 
-/* stop ugly scroll bar on some browsers */
+
 .chatbot-conversation-container::-webkit-scrollbar {
   display: none;
 }
@@ -77,9 +78,9 @@ main {
   font-size: 1.07em;
 }
 
-.speech:first-child {
+/* .speech:first-child {
   margin-top: 0;
-}
+} */
 
 .speech-ai {
 background: #464a4d;
@@ -98,18 +99,17 @@ background: #1d3557;
 
 .chatbot-input-container {
   display: flex;
+  margin-top: auto; /* Push the input container to the bottom */
 }
+
+
 
 input[type="text"], button {
   background-color: transparent;
   border: 1px solid #586e88;
   border-radius: var(--border-rad-lg);
   padding: 1em;
-  margin-top: 12%;
-  
-}
-
-
+} 
 
 
 
@@ -119,9 +119,8 @@ input[type="text"] {
   border-right: 0; 
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
- 
-  
 }
+
 
 button {
   border-left: 0; 
@@ -147,8 +146,6 @@ button {
 #user-input{
   font-family: 'Courier New', Courier, monospace;
   font-size: 14px;
-  
- 
 }
 
 /* Media query for phones */
@@ -167,13 +164,15 @@ button {
 
   .chatbot-container {
     width: 100%;
-    height: 100%;
+    height: auto; 
     border-radius: 0;
   }
 
   .chatbot-conversation-container {
-    height: 80%;
-    display: block;
+    height: auto; /* Change from fixed height to auto */
+    max-height: 60vh; /* Limit the maximum height to 60% of the viewport height */
+    overflow-y: scroll;
+    margin: 0;
   }
 
   .speech-ai{
