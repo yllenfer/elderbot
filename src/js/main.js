@@ -122,8 +122,12 @@ const openAIApiKey = import.meta.env.VITE_OPEN_AI_API_KEY;
  const client = createClient(sbUrl, sbApikey);
  const llm = new ChatOpenAI({ openAIApiKey });
 
-const standaloneQuestionTemplate = 'Given a question, convert it in a standalonequestion. question: {question} standalone question:';
-const standaloneQuestionPrompt = PromptTemplate.fromTemplate(standaloneQuestionTemplate);
+ const standaloneQuestionTemplate = `Given some conversation history (if any) and a question, convert the question to a standalone question. 
+ conversation history: {conv_history}
+ question: {question} 
+ standalone question:`
+ 
+ const standaloneQuestionPrompt = PromptTemplate.fromTemplate(standaloneQuestionTemplate);
 
 const answerQuestionTemplate = `You are Elder Bot, a helpful and enthusiastic missionary bot dedicated to answering questions about the Book of Mormon. Your responses are based solely on the provided context of the Book of Mormon. If you're unable to find a direct answer, kindly direct the questioner to further explore the teachings of the Book of Mormon at https://www.churchofjesuschrist.org/comeuntochrist/ps/book-of-mormon-lesson. Always cite appropriate verses and chapters when providing answers.
 
@@ -131,6 +135,7 @@ Please note that your responses are limited to questions related to the Book of 
 
 Context: {context}
 Question: {question}
+conversation history: {conv_history}
 Answer:
 `;
 const answerPrompt = PromptTemplate.fromTemplate(answerQuestionTemplate);
@@ -143,6 +148,19 @@ const answerChain = answerPrompt.pipe(llm).pipe(new StringOutputParser());
 function scrollToBottom(container) {
     container.scrollTop = container.scrollHeight;
 }
+
+function formatConvHistory(messages) {
+    return messages.map((message, i) => {
+        if (i % 2 === 0){
+            return `Human: ${message}`
+        } else {
+            return `AI: ${message}`
+        }
+    }).join('\n')
+}
+
+
+const conversationHistory = []
 
 async function progressConversation() {
     const userInput = document.getElementById('user-input');
@@ -188,8 +206,12 @@ async function progressConversation() {
 
     // Invoke AI to get response
      const response = await chain.invoke({
-        question: question
+        question: question,
+        conv_history: formatConvHistory(conversationHistory)
      });
+
+     conversationHistory.push(question);
+     conversationHistory.push(response);
 
     // add AI message
     const newAiSpeechBubble = document.createElement('div');
@@ -256,7 +278,8 @@ const chain = RunnableSequence.from([
     },
     {
         context: retrieverChain,
-        question: ({ original_input }) => original_input.question
+        question: ({ original_input }) => original_input.question,
+        conv_history: ({ original_input }) => original_input.conv_history
     },
     answerChain
 ]);
