@@ -23,5 +23,5 @@
 Please feel free to ask questions and provide feedback. You can also contact Yllen Fernandez at [yllenfernandez.com](https://yllenfernandez.com).
 
 **Elder Bot Chat:**
-[Start chatting with Elder Bot](#) ([ElderBot](https://main--elderbot.netlify.app/))
+[Start chatting with Elder Bot](#) ([ElderBot](https://elderbot.netlify.app/))
 
