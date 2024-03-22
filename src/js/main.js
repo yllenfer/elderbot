@@ -1,4 +1,3 @@
-// require('dotenv').config(); 
 import { ChatOpenAI } from '@langchain/openai';
 import { PromptTemplate } from '@langchain/core/prompts';
 import { StringOutputParser } from "@langchain/core/output_parsers";
@@ -26,7 +25,7 @@ import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.8.1/firebase
 
 
 
-// console.log(process.env)
+
 document.addEventListener('DOMContentLoaded', () => {
     const savedConversation = localStorage.getItem('conversation');
     const chatbotConversation = document.getElementById('chatbot-conversation-container');
@@ -62,7 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
         displayIntroMessage();
     }
 
-    // Add event listener for form submission
+    
     document.addEventListener('submit', async (e) => {
         e.preventDefault();
         
@@ -93,7 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
 const sbApikey = import.meta.env.VITE_SUPAB_API_KEY;
 const sbUrl = import.meta.env.VITE_SUPAB_URL; 
 const openAIApiKey = import.meta.env.VITE_OPEN_AI_API_KEY;
-// console.log('keys: ', sbApikey, sbUrl, openAIApiKey);
+
 
 
  const client = createClient(sbUrl, sbApikey);
@@ -126,10 +125,31 @@ const standaloneQuestionChain = standaloneQuestionPrompt.pipe(llm).pipe(new Stri
 
 const answerChain = answerPrompt.pipe(llm).pipe(new StringOutputParser());
 
-// Define scrollToBottom function outside progressConversation
+
 function scrollToBottom(container) {
     container.scrollTop = container.scrollHeight;
 }
+
+function showTypingIndicator(parentElement, show) {
+    let typingIndicator = parentElement.querySelector('.typing-indicator');
+    if (!typingIndicator && show) {
+       
+        typingIndicator = document.createElement('div');
+        typingIndicator.classList.add('typing-indicator');
+        for (let i = 0; i < 3; i++) {
+            const dot = document.createElement('div');
+            dot.classList.add('dot');
+            typingIndicator.appendChild(dot);
+        }
+        parentElement.appendChild(typingIndicator);
+    } else if (typingIndicator && !show) {
+     
+        typingIndicator.remove();
+    }
+}
+
+
+
 
 function formatConvHistory(messages) {
     return messages.map((message, i) => {
@@ -147,53 +167,55 @@ const conversationHistory = []
 async function progressConversation() {
     const userInput = document.getElementById('user-input');
     const chatbotConversation = document.getElementById('chatbot-conversation-container');
+    const question = userInput.value.trim();
+    userInput.value = '';  
 
-   
-
-    const question = userInput.value;
-    userInput.value = '';
-
-
-
-    // add human message
-    const newHumanSpeechBubble = document.createElement('div');
-    newHumanSpeechBubble.classList.add('speech', 'speech-human');
-    chatbotConversation.appendChild(newHumanSpeechBubble);
-    newHumanSpeechBubble.textContent = question;
-    chatbotConversation.scrollTop = chatbotConversation.scrollHeight;
-    let interactionCount = parseInt(getCookie('interactionCount')) || 0; // Initialize interaction count from cookie
-
-    if (interactionCount >= 5) {
-        displayLimitReachedMessage();
-        return; 
+    if (question === '') {
+        return;  
     }
 
-    // Increment interaction count
+    // Add human message to the conversation.
+    const newHumanSpeechBubble = document.createElement('div');
+    newHumanSpeechBubble.classList.add('speech', 'speech-human');
+    newHumanSpeechBubble.textContent = question;
+    chatbotConversation.appendChild(newHumanSpeechBubble);
+    
+    let interactionCount = parseInt(getCookie('interactionCount')) || 0;
+    if (interactionCount >= 5) {
+        displayLimitReachedMessage();
+        return;  
+    }
+
     interactionCount++;
     setCookie('interactionCount', interactionCount, 1);
 
-    // Invoke AI to get response
-     const response = await chain.invoke({
+ 
+    showTypingIndicator(chatbotConversation, true);
+    scrollToBottom(chatbotConversation); 
+
+    
+    const response = await chain.invoke({
         question: question,
         conv_history: formatConvHistory(conversationHistory)
-     });
+    });
 
-     conversationHistory.push(question);
-     conversationHistory.push(response);
+    // Hide typing indicator now that response is ready.
+    showTypingIndicator(chatbotConversation, false);
 
-    // add AI message
+    // Add the AI's response to the conversation and ensure it's visible.
     const newAiSpeechBubble = document.createElement('div');
     newAiSpeechBubble.classList.add('speech', 'speech-ai');
-    chatbotConversation.appendChild(newAiSpeechBubble);
     newAiSpeechBubble.textContent = response;
-    chatbotConversation.scrollTop = chatbotConversation.scrollHeight;
+    chatbotConversation.appendChild(newAiSpeechBubble);
+    scrollToBottom(chatbotConversation); 
 
-    // Scroll to bottom after adding new message
-   
-
-    // Update local storage
+    // Update conversation history and local storage.
+    conversationHistory.push(question, response);
     localStorage.setItem('conversation', chatbotConversation.innerHTML);
 }
+
+
+
 
 function displayLimitReachedMessage() {
     const chatbotConversation = document.getElementById('chatbot-conversation-container');

@@ -15,6 +15,29 @@ html, body {
   font-family: 'Courier New', Courier, monospace;
 }
 
+.typing-indicator {
+  display: flex;
+  justify-content: center; 
+  padding: 10px;
+}
+
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #1d3557; 
+  animation: blink 1.4s infinite both;
+  margin: 8px;
+  padding: 8px;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: .2; }
+  50% { opacity: 1; }
+}
+
+
 main {    
   background-color: #1d3557;
   /* background-color: aqua; */
@@ -99,7 +122,7 @@ background: #1d3557;
 
 .chatbot-input-container {
   display: flex;
-  margin-top: auto; /* Push the input container to the bottom */
+  margin-top: auto; 
 }
 
 
