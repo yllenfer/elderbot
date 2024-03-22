@@ -7,15 +7,9 @@ import { OpenAIEmbeddings } from "@langchain/openai";
 import { createClient } from "@supabase/supabase-js";
 import { RunnableSequence, RunnablePassthrough } from '@langchain/core/runnables';
 import { v4 as uuidv4 } from 'uuid';
-import {dotenv} from 'dotenv';
- // Import the functions you need from the SDKs you need
- import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
- import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-analytics.js";
- // TODO: Add SDKs for Firebase products that you want to use
- // https://firebase.google.com/docs/web/setup#available-libraries
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-analytics.js";
 
- // Your web app's Firebase configuration
- // For Firebase JS SDK v7.20.0 and later, measurementId is optional
  const firebaseConfig = {
    apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
    authDomain: import.meta.env.VITE_AUTH_DOMAIN,
@@ -91,23 +85,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// async function updateInteractionCount(userId) {
-//     try {
-//         const response = await fetch('/interactions', {
-//             method: 'POST',
-//             headers: {
-//                 'Content-Type': 'application/json'
-//             },
-//             body: JSON.stringify({ userId: userId })
-//         });
-
-//         if (!response.ok) {
-//             throw new Error('Failed to update interaction count');
-//         }
-//     } catch (error) {
-//         console.error('Error updating interaction count:', error);
-//     }
-// }
 
 
 
@@ -129,7 +106,12 @@ const openAIApiKey = import.meta.env.VITE_OPEN_AI_API_KEY;
  
  const standaloneQuestionPrompt = PromptTemplate.fromTemplate(standaloneQuestionTemplate);
 
-const answerQuestionTemplate = `You are Elder Bot, a helpful and enthusiastic missionary bot dedicated to answering questions about the Book of Mormon. Your responses are based solely on the provided context of the Book of Mormon. If you're unable to find a direct answer, kindly direct the questioner to further explore the teachings of the Book of Mormon at https://www.churchofjesuschrist.org/comeuntochrist/ps/book-of-mormon-lesson. Always cite appropriate verses and chapters when providing answers.
+const answerQuestionTemplate = `You are Elder Bot, a helpful and enthusiastic missionary bot dedicated
+ to answering questions about the Book of Mormon. Your responses are based 
+ solely on the provided context of the Book of Mormon. If you're unable to find a 
+ direct answer, kindly direct the questioner to further explore the teachings of the Book of Mormon at 
+ https://www.churchofjesuschrist.org/comeuntochrist/ps/book-of-mormon-lesson. Always cite appropriate verses and 
+ chapters when providing answers.
 
 Please note that your responses are limited to questions related to the Book of Mormon. If the question is outside of this context, kindly inform the user that it is beyond your scope of knowledge.
 
@@ -165,22 +147,8 @@ const conversationHistory = []
 async function progressConversation() {
     const userInput = document.getElementById('user-input');
     const chatbotConversation = document.getElementById('chatbot-conversation-container');
-    const typingIndicatorContainer = document.getElementById('typing-indicator-container');
 
-    // const isChatEmpty = chatbotConversation.children.length === 0;
-
-    // if (isChatEmpty) {
-    //     const introMessage = "Hi, my name is Elder Bot and I am here to help you with your questions about the Book of Mormon. Feel free to ask me anything!";
-    //     const introSpeechBubble = document.createElement('div');
-    //     introSpeechBubble.classList.add('speech', 'speech-ai');
-    //     introSpeechBubble.textContent = introMessage;
-    //     chatbotConversation.appendChild(introSpeechBubble);
-
-        
-    //     scrollToBottom(chatbotConversation);
-    // }
-
-    // await new Promise(resolve => setTimeout(resolve, 1000));
+   
 
     const question = userInput.value;
     userInput.value = '';
@@ -230,7 +198,7 @@ async function progressConversation() {
 function displayLimitReachedMessage() {
     const chatbotConversation = document.getElementById('chatbot-conversation-container');
     const limitMessage = document.createElement('div');
-    limitMessage.textContent = "You have reached the maximum number of interactions for today. Please contact thechurchofjesuschrist.org for a better conversion";
+    limitMessage.textContent = "You have reached the maximum number of interactions for today. Please contact churchofjesuschrist.org for a better conversion";
     limitMessage.classList.add('speech', 'speech-ai');
     chatbotConversation.appendChild(limitMessage);
     chatbotConversation.scrollTop = chatbotConversation.scrollHeight;
